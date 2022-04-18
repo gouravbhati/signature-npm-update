@@ -197,14 +197,7 @@
 	[self saveImage];
 }
 
--(NSString *) getCurrenttime{
-    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
-    // NSTimeInterval is defined as double
-    NSNumber *timeStampObj = [NSNumber numberWithDouble: timeStamp];
-    NSString *myString = [timeStampObj stringValue];
-    myString = [myString stringByReplacingOccurrencesOfString:@"." withString:@""];
-    return myString;
-} 
+
 
 -(void) saveImage {
 	saveButton.hidden = YES;
@@ -213,13 +206,20 @@
 
 	saveButton.hidden = NO;
 	clearButton.hidden = NO;
-
-	NSError *error;
-
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsDirectory = [paths firstObject];
-    NSString * timeAddPath = [documentsDirectory stringByAppendingFormat:getCurrenttime];
-    NSString *tempPath = [timeAddPath stringByAppendingFormat:@"/signature.png"];
+    
+    NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
+    // NSTimeInterval is defined as double
+    NSNumber *timeStampObj = [NSNumber numberWithDouble: timeStamp];
+    NSString *myString = [timeStampObj stringValue];
+    myString = [myString stringByReplacingOccurrencesOfString:@"." withString:@""];
+    
+    NSError *error;
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths firstObject];
+    NSString * timeAddPath = [documentsDirectory stringByAppendingFormat:@"/%@", myString];
+    NSString *tempPath = [timeAddPath stringByAppendingFormat:@"signaturemyString.png"];
+   
 
 	//remove if file already exists
 	if ([[NSFileManager defaultManager] fileExistsAtPath:tempPath]) {
