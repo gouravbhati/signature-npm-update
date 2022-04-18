@@ -201,10 +201,10 @@
     NSTimeInterval timeStamp = [[NSDate date] timeIntervalSince1970];
     // NSTimeInterval is defined as double
     NSNumber *timeStampObj = [NSNumber numberWithDouble: timeStamp];
-    NSLog(@"date: %@", [NSNumber timeStampObj]);
-    return [NSNumber timeStampObj];
-}
-
+    NSString *myString = [timeStampObj stringValue];
+    myString = [myString stringByReplacingOccurrencesOfString:@"." withString:@""];
+    return myString;
+} 
 
 -(void) saveImage {
 	saveButton.hidden = YES;
